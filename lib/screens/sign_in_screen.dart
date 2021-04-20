@@ -24,9 +24,10 @@ class _SignInState extends State<SignIn> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   GlobalKey<FormState> _key = GlobalKey();
-
+  var provider;
   @override
   Widget build(BuildContext context) {
+     provider= Provider.of<SignInProvider>(context,listen: true);
     _height = MediaQuery.of(context).size.height;
     _width = MediaQuery.of(context).size.width;
     _pixelRatio = MediaQuery.of(context).devicePixelRatio;
@@ -210,7 +211,7 @@ class _SignInState extends State<SignIn> {
   }
 
   Widget button() {
-    final provider = Provider.of<SignInProvider>(context);
+
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         elevation: 0,

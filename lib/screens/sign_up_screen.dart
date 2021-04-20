@@ -252,7 +252,7 @@ class _SignUpState extends State<SignUp> {
   }
 
   Widget button() {
-    final provider = Provider.of<SignUpProvider>(context);
+    final provider = Provider.of<SignUpProvider>(context,listen: true);
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         elevation: 0,
@@ -266,8 +266,8 @@ class _SignUpState extends State<SignUp> {
       onPressed: () {
         var enName = englishNameController.text;
         var arName = arabicNameController.text;
-          var password = passwordController.text;
-          var phone = phoneController.text;
+        var password = passwordController.text;
+        var phone = phoneController.text;
         String birthDate = _selectedDate.toString();
         if (enName.isEmpty || enName.length < 3) {
           final snackBar = SnackBar(
@@ -326,12 +326,20 @@ class _SignUpState extends State<SignUp> {
             password.isEmpty) {
           return;
         } else {
-          provider.signUp(
-              nameEn: enName,
-              nameAr: arName,
-              password: password,
-              mobile: phone,
-              birthdate: birthDate);
+          provider
+              .signUp(
+                  nameEn: enName,
+                  nameAr: arName,
+                  password: password,
+                  mobile: phone,
+                  birthdate: birthDate)
+              .then((value) => {
+                    if (value)
+                      {
+                        Navigator.of(context)
+                            .pushReplacementNamed(HomeScreen.routeName)
+                      }
+                  });
           if (provider.errorMessage.isNotEmpty) {
             final snackBar = SnackBar(
               content: Text(provider.errorMessage),
@@ -343,8 +351,6 @@ class _SignUpState extends State<SignUp> {
               ),
             );
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
-          } else {
-            Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
           }
         }
       },

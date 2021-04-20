@@ -10,11 +10,12 @@ class CartScreen extends StatelessWidget {
     return Scaffold(
       key: _scaffoldKey,
       //backgroundColor: Theme.of(context).primaryColorLight,
+
       drawer: MainDrawer(),
       body: SingleChildScrollView(
         child: Column(children: [
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.only(top:40.0,right: 15),
             child: Row(
               children: [
                 Container(

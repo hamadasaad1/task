@@ -54,6 +54,7 @@ class SignInProvider extends ChangeNotifier {
       if ( jsonResponse.toString().contains('error')) {
         _errorMessage =
         jsonResponse['message'];
+        _isLoading = false;
         notifyListeners();
         return false;
 

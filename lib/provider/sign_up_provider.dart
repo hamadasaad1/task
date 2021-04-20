@@ -16,7 +16,7 @@ class SignUpProvider extends ChangeNotifier {
 
   String get errorMessage => _errorMessage;
 
-  Future<Map<String, dynamic>> signUp(
+  Future<bool> signUp(
       {String nameEn,
       String nameAr,
       String birthdate,
@@ -49,22 +49,24 @@ class SignUpProvider extends ChangeNotifier {
           mapResponse['message'] ?? mapResponse['message'] ?? "Error";
       _isLoading = false;
       notifyListeners();
-      return mapResponse;
+      return false;
     } else {
       var jsonResponse = json.decode(response.body);
       if (jsonResponse['status'].toString().contains('error')) {
         _errorMessage = jsonResponse['message'];
         _isLoading = false;
         notifyListeners();
+        return false;
       }else{
         _saveDate(jsonResponse["data"]["name_en"], jsonResponse["data"]["id"].toString(),
             jsonResponse["data"]["api_token"]);
         _isLoading = false;
         notifyListeners();
+        return false;
       }
 
 
-      return jsonResponse;
+
     }
   }
 

@@ -29,7 +29,7 @@ class ProductsProvider extends ChangeNotifier {
     String userName = sharedPreferences.getString(USERNAME);
     var gwtToken = sharedPreferences.getString(SECURITY_TOKEN);
     Map<dynamic, dynamic> _postData = {
-      "name_en": userName,
+      "name_en": userName??"",
       "page": "1",
       "norecord": "4",
       "key_search": ""
